@@ -51,7 +51,7 @@ public class CellsManager {
 		cells.add(new TextArea("currentTitle", 0, pX, pY, 3, 3, "", parent.window));
 		cells.add(new TextArea("currentPart", 0, pX, pY, 4, 3, "", parent.window));
 		cells.add(new TextArea("currentBpm", 0, pX, pY, 5, 3, "", parent.window));
-		cells.add(new Cell("currentKeyFr", 0, pX, pY, 6, 3, "", parent.window));
+		cells.add(new TextArea("currentKeyFr", 0, pX, pY, 6, 3, "", parent.window));
 		cells.add(new Cell("currentFrPerBpm", 0, pX, pY, 7, 3, "", parent.window));
 		cells.add(new TextArea("currentTempoForRef", 0, pX, pY, 8, 3, "", parent.window));
 		cells.add(new Cell("currentRefFr", 0, pX, pY, 9, 3, "", parent.window));
@@ -170,6 +170,18 @@ public class CellsManager {
 			for (int i=0 ; i<parent.cells.size() ; i++) 
 			{
 				fillSpecificCell("currentKeyFr",String.valueOf(parent.tracksManager.currentTrack().getKeyFr()));
+				fillSpecificCell("currentFrPerBpm",String.valueOf(parent.tracksManager.currentTrack().getFrPerBpm()));
+				fillSpecificCell("currentTempoForRef",String.valueOf(parent.tracksManager.currentTrack().getTempoForRef()));
+			}
+		}
+		if (thisCell.getId().equals("currentKeyFr") && !thisCell.getValue().equals("") )
+		{
+			parent.tracksManager.computeEditKeyFr(Float.parseFloat(thisCell.getValue()));
+			for (int i=0 ; i<parent.cells.size() ; i++) 
+			{
+				fillSpecificCell("currentRefFr",String.valueOf(parent.tracksManager.currentTrack().getRefFr()));
+				fillSpecificCell("currentFrPerBpm",String.valueOf(parent.tracksManager.currentTrack().getFrPerBpm()));
+				fillSpecificCell("currentTempoForRef",String.valueOf(parent.tracksManager.currentTrack().getTempoForRef()));
 			}
 		}
 		if (thisCell.getId().equals("currentTempoForRef") && !thisCell.getValue().equals("") )

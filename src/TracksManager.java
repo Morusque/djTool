@@ -172,6 +172,22 @@ public class TracksManager {
 			currentTrack().setKeyFr(currentTrack().getRefFr() * currentTrack().getBpm() / currentTrack().getTempoForRef());
 	}
 
+	public void computeEditKeyFr(float value) {
+		currentTrack().setKeyFr(value);
+		currentTrack().setRefFr(refFr);		
+		float frPerBpm = 0;
+		currentTrack().setTempoForRef(currentTrack().getBpm()*currentTrack().getRefFr()/currentTrack().getKeyFr());
+		if (currentTrack().getTempoForRef() > 0)
+			frPerBpm = currentTrack().getRefFr() / currentTrack().getTempoForRef();
+		if (frPerBpm > 0) {
+			while (frPerBpm >= 2)
+				frPerBpm /= 2;
+			while (frPerBpm < 1)
+				frPerBpm *= 2;
+		}		
+		currentTrack().setFrPerBpm(frPerBpm);
+	}
+
 	public void edit(int copy) {
 		copy += parent.cellsManager.getListOffset();
 		if (copy < tracksList.size()) {
